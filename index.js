@@ -15,7 +15,7 @@ client.settings = new Enmap({ name: "settings",  fetchAll: true, autoFetch: true
 client.settings.ensure('guildId', '694968857684869280')
 client.settings.ensure('voiceChannelMaker', '959807850387996732')
 client.settings.ensure('voiceChannelsParent', '956996907882909757')
-client.settings.ensure('notifsChannel', '956982368453943327')
+client.settings.ensure('notifsChannel', '1043875401358917672')
 client.settings.ensure('logsChannel', '959822164448665680')
 client.settings.ensure('roleMembre', '959478238911037571')
 client.settings.ensure('notifsMessage', '')
