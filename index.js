@@ -5,7 +5,7 @@ const { Client, Collection } = require('discord.js')
 const client = new Client({ restRequestTimeout: 60000, intents: 69631 })
 client.commands = new Collection()
 
-const handlers = ['CommandUtil', 'EventUtil']
+const handlers = ['EventUtil', 'CommandUtil']
 handlers.forEach(handler => { require(`./utils/handlers/${handler}`)(client) });
 
 // DB
@@ -20,6 +20,9 @@ client.settings.ensure('logsChannel', '959822164448665680')
 client.settings.ensure('roleMembre', '959478238911037571')
 client.settings.ensure('notifsMessage', '')
 client.settings.set('status', 'offline')
+
+client.inscriptionsTournois = new Enmap({ name: "inscriptionsTournois",  fetchAll: true, autoFetch: true });
+client.inscriptionsTournois.clear()
 
 // API Twitch
 require("./utils/twitch/main")(client)
