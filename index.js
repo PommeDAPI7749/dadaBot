@@ -5,7 +5,7 @@ const { Client, Collection } = require('discord.js')
 const client = new Client({ restRequestTimeout: 60000, intents: 69631 })
 client.commands = new Collection()
 
-const handlers = ['EventUtil', 'CommandUtil']
+const handlers = ['TwitchEventsUtil', 'CommandUtil', 'EventUtil']
 handlers.forEach(handler => { require(`./utils/handlers/${handler}`)(client) });
 
 // DB
@@ -23,9 +23,6 @@ client.settings.set('status', 'offline')
 
 client.inscriptionsTournois = new Enmap({ name: "inscriptionsTournois",  fetchAll: true, autoFetch: true });
 client.inscriptionsTournois.clear()
-
-// API Twitch
-require("./utils/twitch/main")(client)
 
 // Traitement des erreurs
 process.on('exit', code => console.log(`process stopped with : ${code}`))

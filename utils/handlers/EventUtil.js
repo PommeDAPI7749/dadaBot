@@ -3,6 +3,23 @@ const { glob } = require('glob')
 const pGlob = promisify(glob)
 
 module.exports = async client => {
+    (await pGlob(`${process.cwd()}/events/custom/*.js`)).map(async eventFile => {
+        const event = require(eventFile)
+
+        if (!event.name) {
+            console.log(`------------\nEvenement bogué -> ${eventFile}\n------------`)
+        }
+
+        if (event.once) {
+            client.once(event.name, (...args) => event.run(client, ...args))
+        } else {
+            client.on(event.name, (...args) => event.run(client, ...args))
+        }
+
+        console.log(`Custom event ready -> ${event.name}`)
+    })
+    console.log('------------\nCustom integration is ready !\n------------\n');
+    
     (await pGlob(`${process.cwd()}/events/discord/*/*.js`)).map(async eventFile => {
         const event = require(eventFile)
 

@@ -89,7 +89,14 @@ module.exports = {
         dataTeam.body.members.push(member)
       }
 
+      if (!dataTeam.body.members.includes(interaction.member.id) && dataTeam.body.coach !== interaction.member.id) {
+        interaction.reply({ content: 'Vous ne pouvez pas inscrire une equipe dont vous ne faites pas parti', ephemeral: true })
+        return
+      }
+
       client.inscriptionsTournois.set(dataTeam.name, dataTeam.body)
+
+      client.emit('inscriptionDetected', dataTeam)
 
       interaction.reply({ content: 'Equipe inscrite avec succes', ephemeral: true })
       if (client.inscriptionsTournois.size == 8) {
