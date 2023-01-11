@@ -26,6 +26,7 @@ module.exports = {
         for (let memberId of equipe.members) {
             interaction.guild.members.cache.get(memberId).roles.remove('1060584230117183628')
         }
+        interaction.guild.members.cache.get(equipe.coach)?.roles.remove('1060584230117183628')
 
         for (let channelId of equipe.channels) {
             await interaction.guild.channels.delete(channelId)

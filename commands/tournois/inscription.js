@@ -131,6 +131,11 @@ module.exports = {
         interaction.guild.members.cache.get(memberId).roles.add(teamRole.id)
       }
 
+      if (dataTeam.body.coach) {
+        interaction.guild.members.cache.get(dataTeam.body.coach).roles.add('1060584230117183628')
+        interaction.guild.members.cache.get(dataTeam.body.coach).roles.add(teamRole.id)
+      }
+
       client.inscriptionsTournois.set(dataTeam.name, dataTeam.body)
 
       client.emit('inscriptionDetected', dataTeam)
