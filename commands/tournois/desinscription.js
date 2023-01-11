@@ -1,7 +1,7 @@
 module.exports = {
     help: {
       name: 'desinscription',
-      description: 'Desinscrit une equipe',
+      description: 'Commande de desinscription au dada tournament',
       options: [
             {
               name: 'nom-de-l-equipe',

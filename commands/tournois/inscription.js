@@ -1,7 +1,7 @@
 module.exports = {
     help: {
       name: 'inscription',
-      description: 'Commande d\'inscription au dada tournement',
+      description: 'Commande d\'inscription au dada tournament',
       options: [
           {
               name: 'nom-de-l-equipe',
