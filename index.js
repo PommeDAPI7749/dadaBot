@@ -22,7 +22,6 @@ client.settings.ensure('notifsMessage', '')
 client.settings.set('status', 'offline')
 
 client.inscriptionsTournois = new Enmap({ name: "inscriptionsTournois",  fetchAll: true, autoFetch: true });
-client.inscriptionsTournois.clear()
 
 // Traitement des erreurs
 process.on('exit', code => console.log(`process stopped with : ${code}`))

@@ -1,7 +1,7 @@
 module.exports = {
     help: {
       name: 'inscription',
-      description: 'Run un code donné',
+      description: 'Commande d\'inscription au dada tournement',
       options: [
           {
               name: 'nom-de-l-equipe',
@@ -60,7 +60,9 @@ module.exports = {
         body: {
           numeroDInscription: client.inscriptionsTournois.size,
           members: [],
-          coach: options.getUser('coach')?.id
+          coach: options.getUser('coach')?.id,
+          roleId: '',
+          channels: []
         }
       }
 
@@ -92,6 +94,41 @@ module.exports = {
       if (!dataTeam.body.members.includes(interaction.member.id) && dataTeam.body.coach !== interaction.member.id) {
         interaction.reply({ content: 'Vous ne pouvez pas inscrire une equipe dont vous ne faites pas parti', ephemeral: true })
         return
+      }
+
+      const teamRole = await interaction.guild.roles.create({ name: dataTeam.name })
+      dataTeam.body.roleId = teamRole.id
+      dataTeam.body.channels.push(await interaction.guild.channels.create(dataTeam.name, { 
+        parent: '1060584773963239424', 
+        permissionOverwrites: [
+          {
+            id: teamRole.id,
+            allow: 'VIEW_CHANNEL'
+          },
+          {
+            id: '694968857684869280',
+            deny: 'VIEW_CHANNEL'
+          }
+        ] 
+      })).id
+      dataTeam.body.channels.push(await interaction.guild.channels.create(dataTeam.name, { 
+        parent: '1060584773963239424',
+        type: 'GUILD_VOICE',
+        permissionOverwrites: [
+          {
+            id: teamRole.id,
+            allow: 'VIEW_CHANNEL'
+          },
+          {
+            id: '694968857684869280',
+            deny: 'VIEW_CHANNEL'
+          }
+        ] 
+      })).id
+
+      for (let memberId of dataTeam.body.members) {
+        interaction.guild.members.cache.get(memberId).roles.add('1060584230117183628')
+        interaction.guild.members.cache.get(memberId).roles.add(teamRole.id)
       }
 
       client.inscriptionsTournois.set(dataTeam.name, dataTeam.body)
