@@ -14,7 +14,7 @@ module.exports = {
         }).setTimestamp()
 
         for (let [teamName, teamData] of client.inscriptionsTournois) {
-            let data = 'Numero d\'inscription: ' + (teamData.numeroDInscription + 1) + '\nJoueurs:'
+            let data = ''
 
             for (let memberId of teamData.members) {
                 data += '\n  - ' + await interaction.guild.members.cache.get(memberId).user.username

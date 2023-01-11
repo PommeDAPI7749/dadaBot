@@ -58,7 +58,6 @@ module.exports = {
       const dataTeam = {
         name: options.getString('nom-de-l-equipe'),
         body: {
-          numeroDInscription: client.inscriptionsTournois.size,
           members: [],
           coach: options.getUser('coach')?.id,
           roleId: '',
